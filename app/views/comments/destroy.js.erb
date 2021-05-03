@@ -1,0 +1,4 @@
+$('#comment-<%= @comment.id %>').remove();
+
+val = $('#comments-<%= @comment.commentable.id %>-count').text();
+$('#comments-<%= @comment.commentable.id %>-count').text(parseInt(val) - 1);

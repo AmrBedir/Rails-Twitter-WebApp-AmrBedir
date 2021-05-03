@@ -1,0 +1,7 @@
+<p class="text-center mb-0">عدد الردود: <span id="comments-<%= tweet.id %>-count"><%= tweet.comments.size %></span></p>
+<%= form_tag comments_path(commentable_type: 'tweet', commentable_id: tweet.id), method: :post, remote: true do %>
+  <div class="form-group">
+    <%= text_area_tag :comment_text, nil, placeholder: 'ردك', class: 'form-control' %>
+  </div>
+  <%= submit_tag 'رد', class: 'btn btn-sm btn-primary' %>
+<% end %>
