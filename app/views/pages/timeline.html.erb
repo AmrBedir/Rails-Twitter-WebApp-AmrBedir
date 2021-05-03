@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8 offset-md-2">
+      <div class="timeline-centered">
+        <% @activities.each do |activity| %>
+          <% if activity.trackable %>
+            <article class="timeline-entry">
+              <div class="timeline-entry-inner">
+                <div class="timeline-icon">
+                  <%= gravatar_tag activity.owner.email, size: 40, html: { class: 'rounded-circle' } %>
+                </div>
+                <div class="timeline-label tweet-<%= activity.trackable.id %>">
+                  <h2><%= link_to activity.owner.username, user_path(activity.owner.username) %> <span><%= content_tag :time, '', class: 'timeago', datetime: activity.created_at.localtime %></span></h2>
+                  <% case activity.trackable_type when 'Tweet' %>
+                    <% case activity.key when 'tweet.created' %>
+                  	  <p><%= raw(activity.trackable.content_html) %></p>
+                      <%= render 'tweets/like_and_dislike_buttons', tweet: activity.trackable %>
+                      <%= render 'tweets/retweet_button', tweet: activity.trackable if user_signed_in? && activity.trackable.user_id != current_user.id %>
+                      <hr>
+                      <%= render 'comments/form', tweet: activity.trackable %>
+                      <br>
+                      <div id="comments-<%= activity.trackable.id %>">
+                        <%= render activity.trackable.comments.reverse %>
+                      </div>
+                    <% when 'tweet.liked' %>
+                      <p><%= link_to activity.owner.username, user_path(activity.owner.username) %> اعجبته تغريدة</p>
+                    <% when 'tweet.disliked' %>
+                      <p><%= link_to activity.owner.username, user_path(activity.owner.username) %> لم تعجبه تغريدة</p>
+                    <% when 'tweet.mention' %>
+                      <p>ذكر <%= link_to activity.recipient.username, user_path(activity.recipient.username) %> في تغريدة</p>
+                    <% end %>
+                	<% when 'Relationship' %>
+                	  <p><%= link_to activity.owner.username, user_path(activity.owner.username) %> تابع <%= link_to activity.recipient.username, user_path(activity.recipient.username) %></p>
+                  <% when 'Comment' %>
+                    <p><%= link_to activity.owner.username, user_path(activity.owner.username) %> رد على تغريدة</p>
+                  <% when 'Retweet' %>
+                    <p><%= link_to activity.owner.username, user_path(activity.owner.username) %> قام بإعادة التغريد</p>
+                	<% end %>
+                </div>
+              </div>
+            </article>
+          <% end %>
+      	<% end %>
+      </div>
+    </div>
+  </div>
+</div>
