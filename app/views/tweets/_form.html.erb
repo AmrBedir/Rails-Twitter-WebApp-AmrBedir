@@ -1,0 +1,37 @@
+<%= simple_form_for(@tweet) do |f| %>
+  <div class="card">
+    <div class="card-header">غرّد الان!</div>
+    <div class="card-body">
+      <%= f.error_notification %>
+      <%= f.input :content, required: true, autofocus: true, label: false, hint: "#{140 - @tweet.content.to_s.length}", input_html: { class: 'form-control', maxlength: 140, onkeyup: 'updateChars(this); return true;' } %>
+      <%= f.button :submit, 'غرّد', class: "btn btn-primary btn-block" %>
+    </div>
+  </div>
+<% end %>
+
+<br>
+
+<%= javascript_tag do %>
+  function updateChars(text) {
+  	$('.tweet_content .help-block').text(140 - text.value.length);
+  }
+
+  jQuery(function() {
+    $('#tweet_content').atwho({
+      at: '@',
+      callbacks: {
+        remoteFilter: function(query, callback) {
+          if (query.length < 1) {
+            return false;
+          } else {
+            return $.getJSON('/users.json', {
+              q: query
+            }, function(data) {
+              return callback(data);
+            });
+          }
+        }
+      }
+    });
+  });
+<% end %>
