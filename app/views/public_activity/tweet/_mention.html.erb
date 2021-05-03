@@ -1,0 +1,3 @@
+<% if activity.trackable && activity.recipient.id != @user.id %>
+  <li class="list-group-item">ذكر <%= link_to activity.recipient.username, user_path(activity.recipient.username) %> في تغريدة <%= content_tag :time, '', class: 'timeago', datetime: activity.created_at.localtime %></li>
+<% end %>
