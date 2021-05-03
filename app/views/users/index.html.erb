@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col">
+    <div class="jumbotron-fluid">
+      <center>
+        <h1 class="display-5">المغردون</h1>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <%= link_to 'الكل', tweeters_path, class: 'btn btn-dark' %>
+          <%= link_to 'المُتابَعون', tweeters_path(type: 'following'), class: 'btn btn-dark' %>
+          <%= link_to 'المُتابِعون', tweeters_path(type: 'followers'), class: 'btn btn-dark' %>
+        </div>
+      </center>
+      <hr class="my-3">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row flex-row-reverse">
+    <%= render @users %>
+  </div>
+</div>

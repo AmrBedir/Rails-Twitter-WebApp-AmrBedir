@@ -1,0 +1,14 @@
+<div class="col-3">
+  <div class="card">
+    <%= link_to user_path(user.username) do %>
+      <%= gravatar_tag user.email, size: 200, html: { class: 'card-img-top img-fluid' } %>
+    <% end %>
+    <div class="card-body">
+      <h4 class="card-title text-center mb-0">
+        <%= user.username %>
+        <%= render 'follow_button', user: user %>
+      </h4>
+    </div>
+  </div>
+  <br>
+</div>

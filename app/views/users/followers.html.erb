@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col">
+    <div class="jumbotron-fluid">
+      <center>
+        <h1 class="display-5">أشخاص يُتابعون <%= @user.username %></h1>
+      </center>
+      <hr class="my-3">
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row flex-row-reverse">
+    <%= render @users %>
+  </div>
+</div>

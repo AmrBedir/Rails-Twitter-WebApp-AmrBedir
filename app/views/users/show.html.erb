@@ -1,0 +1,51 @@
+<div class="row flex-row-reverse">
+  <div class="col-3">
+    <%= gravatar_tag @user.email, size: 500, :html => { :class => 'img-fluid' } %>
+  </div>
+  <div class="col">
+    <div class="jumbotron-fluid">
+      <h1 class="display-3">
+        <%= @user.username %>
+        <span class="btn-group">
+          <%= render 'follow_button', user: @user %>
+        </span>
+      </h1>
+      <p class="lead">
+        <%= link_to 'المُتابِعون', followers_user_path(@user.username) %>: <%= @user.followers.count %>
+        | 
+        <%= link_to 'المُتابَعون', following_user_path(@user.username) %>: <%= @user.following.count %>
+      </p>
+      <p><%= fa_icon 'universal-access' %> العمر: <%= @user.age %></p>
+      <p><%= fa_icon 'genderless' %> الجنس: <%= @user.gender %></p>
+      <hr class="my-3">
+      <h1 class="lead"><%= fa_icon 'address-card' %> عن نفسي!</h1>
+      <p class="lead"><%= @user.bio %></p>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <% if user_signed_in? && current_user == @user %>
+          <%= render 'tweets/form' %>
+        <% end %>
+        <%= render @tweets %>
+      </div>
+      
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            <%= fa_icon 'list', text: 'الأنشطة' %>
+          </div>
+          <ul class="list-group list-group-flush">
+            <%= render_activities(@activities) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
