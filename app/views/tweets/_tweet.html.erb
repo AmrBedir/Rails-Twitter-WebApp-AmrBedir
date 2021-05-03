@@ -1,0 +1,22 @@
+<div class="card tweet-<%= tweet.id %>">
+  <div class="card-header">
+    <%= gravatar_tag tweet.user.email, size: 25, :html => { :class => 'img-fluid' } %> <%= tweet.user.username %> غرّد <%= content_tag :time, '', class: 'timeago', datetime: tweet.created_at.localtime %>
+    <% if user_signed_in? && current_user == tweet.user %>
+      <%= link_to(edit_tweet_path(tweet), class: 'btn btn-sm btn-primary') { fa_icon 'pencil-square-o' } %> | <%= link_to(tweet_path(tweet), method: :delete, class: 'btn btn-sm btn-danger') { fa_icon 'trash-o' } %>
+    <% end %>
+  </div>
+  <div class="card-body pb-0">
+    <%= raw(tweet.content_html) %>
+    <%= render 'tweets/like_and_dislike_buttons', tweet: tweet %>
+    <%= render 'tweets/retweet_button', tweet: tweet if user_signed_in? && tweet.user_id != current_user.id %>
+    <hr>
+    <div class="card-body">
+      <%= render 'comments/form', tweet: tweet %>
+    </div>
+    <div id="comments-<%= tweet.id %>">
+      <%= render tweet.comments.reverse %>
+    </div>
+  </div>
+</div>
+
+<br>

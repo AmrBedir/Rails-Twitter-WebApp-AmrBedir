@@ -1,0 +1,10 @@
+<%= link_to likes_path(likeable_type: 'tweet', likeable_id: tweet.id), remote: true, method: :post, class: 'like' do %>
+  <%= button_tag(type: 'button', class: 'btn btn-sm btn-outline-primary') do %>
+    <%= fa_icon 'thumbs-o-up' %> <span class="badge badge-light"><%= tweet.get_likes.size %></span>
+  <% end %>
+<% end %>
+<%= link_to like_path(likeable_type: 'tweet', likeable_id: tweet.id), remote: true, method: :delete, class: 'dislike' do %>
+  <%= button_tag(type: 'button', class: 'btn btn-sm btn-outline-danger') do %>
+    <%= fa_icon 'thumbs-o-down' %>  <span class="badge badge-light"><%= tweet.get_dislikes.size %></span>
+  <% end %>
+<% end %>
