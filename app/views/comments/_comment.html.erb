@@ -1,0 +1,11 @@
+<div id="comment-<%= comment.id %>">
+  <div class="card-footer">
+    <%= gravatar_tag comment.user.email, size: 25, :html => { :class => 'img-fluid' } %> <%= comment.user.username %> رد على تغريدة <%= content_tag :time, '', class: 'timeago', datetime: comment.created_at.localtime %>
+    <% if user_signed_in? && current_user == comment.user %>
+      <%= link_to(comment_path(comment), method: :delete, remote: true, class: 'btn btn-sm btn-danger') { fa_icon 'trash-o' } %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <%= raw(comment.comment) %>
+  </div>
+</div>
