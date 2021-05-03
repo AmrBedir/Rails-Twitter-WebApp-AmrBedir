@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h2>تعديل بيانات المستخدم</h2>
+
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :username, label: 'اسم المستخدم', required: true, autofocus: true %>
+        <%= f.input :age, label: 'العمر' %>
+        <%= f.input :gender, label: 'الجنس' %>
+        <%= f.input :bio, label: 'النبذة الشخصية' %>
+        <%= f.input :email, label: 'البريد الالكتروني', required: true %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
+        <%= f.input :password, label: 'كلمة المرور', autocomplete: "off", hint: "اتركهُ فارغًا اذا لم تكن ترغب في تغييره", required: false %>
+        <%= f.input :password_confirmation, label: 'تأكيد كلمة المرور', required: false %>
+        <%= f.input :current_password, label: 'كلمة المرور الحالية', hint: "نحتاج كلمة المرور الحالية لتأكيد التغييرات التي قمت بها", required: true %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "تعديل" %>
+      </div>
+    <% end %>
+
+    <h3>إلغاء حسابي</h3>
+
+    <p>إذا كنت غير سعيد يمكنك <%= link_to "إلغاء حسابك", registration_path(resource_name), data: { confirm: "هل انت متأكد؟" }, method: :delete %></p>
+
+    <%= link_to "الرجوع", :back %>
+  </div>
+</div>
