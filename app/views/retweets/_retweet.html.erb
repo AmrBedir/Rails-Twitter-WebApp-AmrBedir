@@ -1,0 +1,28 @@
+<div class="card tweet-<%= retweet.source_tweet.id %>">
+  <div class="card-header bg-success border-success text-white">
+    قام <%= retweet.retweeter.username %> بإعادة تغريد هذا <%= content_tag :time, '', class: 'timeago', datetime: retweet.created_at.localtime %>
+    <% if user_signed_in? && current_user == retweet.retweeter %>
+      <%= link_to 'حذف', retweet_path(retweet), method: :delete, class: 'badge badge-danger' %>
+    <% end %>
+  </div>
+  <div class="card-header">
+    <%= gravatar_tag retweet.source_tweet.user.email, size: 25, :html => { :class => 'img-fluid' } %> <%= retweet.source_tweet.user.username %> غرّد <%= content_tag :time, '', class: 'timeago', datetime: retweet.source_tweet.created_at.localtime %>
+    <% if user_signed_in? && current_user == retweet.source_tweet.user %>
+      <%= link_to('تعديل', edit_tweet_path(retweet.source_tweet), class: 'btn btn-sm btn-primary') %> | <%= link_to('حذف', tweet_path(retweet.source_tweet), method: :delete, class: 'btn btn-sm btn-danger') %>
+    <% end %>
+  </div>
+  <div class="card-body pb-0">
+    <%= raw(retweet.source_tweet.content_html) %>
+    <%= render 'tweets/like_and_dislike_buttons', tweet: retweet.source_tweet %>
+    <%= render 'tweets/retweet_button', tweet: retweet.source_tweet if user_signed_in? && retweet.source_tweet.user_id != current_user.id %>
+  </div>
+  <hr>
+  <div class="card-body">
+    <%= render 'comments/form', tweet: retweet.source_tweet %>
+  </div>
+  <div id="comments-<%= retweet.source_tweet.id %>">
+    <%= render retweet.source_tweet.comments.reverse %>
+  </div>
+</div>
+
+<br>
