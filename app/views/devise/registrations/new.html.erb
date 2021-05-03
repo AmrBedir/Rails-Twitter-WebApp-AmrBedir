@@ -1,0 +1,17 @@
+<h2>التسجيل</h2>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :username, label: 'اسم المستخدم', required: true, autofocus: true %>
+    <%= f.input :email, label: 'البريد الالكتروني', required: true %>
+    <%= f.input :password, label: 'كلمة المرور', required: true, hint: ("#{@minimum_password_length} اقل عدد حروف" if @minimum_password_length) %>
+    <%= f.input :password_confirmation, label: 'تأكيد كلمة المرور', required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "التسجيل" %>
+  </div>
+<% end %>
+<%= render "devise/shared/links" %>
