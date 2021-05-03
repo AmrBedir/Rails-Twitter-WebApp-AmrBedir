@@ -1,0 +1,2 @@
+$('.tweet-<%= @likeable.id %> .like .badge').text(<%= @likeable.get_likes.size %>)
+$('.tweet-<%= @likeable.id %> .dislike .badge').text(<%= @likeable.get_dislikes.size %>)
